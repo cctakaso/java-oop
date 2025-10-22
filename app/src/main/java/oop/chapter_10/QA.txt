@@ -1,0 +1,92 @@
+Q01. Javaの`java.io.File`クラスに関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `File`クラスのインスタンスは、ファイルそのものの内容を保持している。
+b. `File`クラスは、ファイルシステム上のファイルやディレクトリのパス名（場所）を抽象的に表現したものであり、ファイルの内容を読み書きする機能は持たない。
+c. `new File("test.txt")`と記述すると、`test.txt`という名前のファイルが物理的に作成される。
+d. `File`クラスの`delete()`メソッドは、ディレクトリが空でない場合でも、そのディレクトリと中身を再帰的に削除する。
+
+答え：
+b
+解説：
+`File`クラスは、あくまでファイルやディレクトリへのパスを表現するオブジェクトです。ファイルやディレクトリの存在確認、名前の変更、削除、パーミッションの確認などのメタ情報を操作しますが、ファイルの内容を直接読み書きするストリーム機能は提供しません。内容の読み書きには`FileInputStream`や`FileReader`などを使います。`new File(...)`はパスを表すオブジェクトを作るだけで、物理的なファイル作成は`createNewFile()`で行います。`delete()`は空のディレクトリしか削除できません。
+
+Q02. JavaのI/Oストリームにおける「バイトストリーム」と「キャラクタストリーム」の主な違いは何ですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. バイトストリームはテキストファイル専用で、キャラクタストリームは画像などのバイナリファイル専用である。
+b. バイトストリームはデータの読み書きをバイト単位（8ビット）で行い、あらゆる種類のデータ（バイナリ、テキスト）を扱える。キャラクタストリームは文字単位（16ビットのUnicode）で行い、テキストデータの扱いに特化している。
+c. バイトストリームの基底クラスは`Reader`と`Writer`で、キャラクタストリームの基底クラスは`InputStream`と`OutputStream`である。
+d. バイトストリームは常にバッファリングを行うが、キャラクタストリームは行わない。
+
+答え：
+b
+解説：
+バイトストリーム（`InputStream`/`OutputStream`のサブクラス）は、データをバイトの連続として扱います。一方、キャラクタストリーム（`Reader`/`Writer`のサブクラス）は、バイトと文字の間の変換（エンコーディング/デコーディング）を自動的に行い、プラットフォームに依存しない形でテキストデータを扱うことができます。
+
+Q03. `try-with-resources`文を使ってファイルの読み書きを行うことの主な利点は何ですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. ファイルの読み書きのパフォーマンスが大幅に向上する。
+b. `finally`ブロックで明示的に`close()`メソッドを呼び出さなくても、ストリームリソースが自動的にクローズされるため、コードが簡潔になりリソースリークを防げる。
+c. ファイルが存在しない場合に、自動的に空のファイルを作成してくれる。
+d. `IOException`が発生しなくなる。
+
+答え：
+b
+解説：
+`FileInputStream`や`BufferedReader`など、`AutoCloseable`インターフェースを実装したクラスは`try-with-resources`文の`try`の括弧内で初期化できます。そうすることで、`try`ブロックが正常に終了しても、例外で終了しても、自動的にリソースの`close()`メソッドが呼び出されます。これにより、リソースの閉じ忘れによるバグを効果的に防ぐことができます。
+
+Q04. `sample.txt`というファイルに「Hello, Java I/O!」という文字列を書き込むコードを、`try-with-resources`文と`FileWriter`を使って記述してください。
+
+答え：
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        String fileName = "sample.txt";
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write("Hello, Java I/O!");
+            System.out.println("ファイルへの書き込みが完了しました。");
+        } catch (IOException e) {
+            System.err.println("ファイル書き込み中にエラーが発生しました: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```
+解説：
+`FileWriter`はテキストファイルを書き込むための便利なキャラクタストリームクラスです。`try-with-resources`文の`try`の括弧内で`FileWriter`のインスタンスを生成することで、`try`ブロックを抜ける際に自動的に`writer`がクローズ（`close()`が呼ばれる）されます。`close()`が呼ばれるとバッファの内容がファイルにフラッシュ（書き出し）されることも保証されます。`IOException`はチェック例外なので、`catch`ブロックで処理する必要があります。
+
+Q05. `BufferedReader`を使って、テキストファイル`input.txt`の内容を一行ずつ読み込み、コンソールに表示するコードを記述してください。ファイルはUTF-8でエンコードされているものとします。
+
+答え：
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+    public static void main(String[] args) {
+        String fileName = "input.txt";
+        // try-with-resourcesでリソースを自動的にクローズする
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+            
+            String line;
+            // 1行ずつ読み込み、nullになるまで（ファイルの終端まで）ループする
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("ファイルの読み込み中にエラーが発生しました: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+```
+解説：
+`FileInputStream`（バイトストリーム）でファイルを読み込み、それを`InputStreamReader`（キャラクタストリームへの橋渡し）でラップして文字エンコーディング（UTF-8）を指定します。さらにそれを`BufferedReader`でラップすることで、`readLine()`メソッドを使った効率的な一行ずつの読み込みが可能になります。`readLine()`はファイルの終端に達すると`null`を返すため、`while`ループの条件式で代入と比較を同時に行い、ループを制御するのが一般的なパターンです。

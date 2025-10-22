@@ -1,0 +1,138 @@
+Q01. Javaのポリモーフィズム（多態性）に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 同じクラス内に、同じ名前で引数の型や数が異なるメソッドを複数定義すること（オーバーロード）。
+b. スーパークラスの参照変数で、そのサブクラスのインスタンスを参照すること。
+c. スーパークラスのメソッドを、サブクラスで再定義（オーバーライド）すること。
+d. 上記a, b, cのすべてがポリモーフィズムを実現するための要素である。
+
+答え：
+d
+解説：
+ポリモーフィズム（多態性）は、同じインターフェース（メソッド呼び出し）を使いながら、オブジェクトの型によって実際の振る舞いが変わる性質を指します。これを実現するために、メソッドのオーバーロード、スーパークラス型によるサブクラスインスタンスの参照、そしてメソッドのオーバーライドが重要な要素となります。
+
+Q02. メソッドのオーバーロード（overload）とオーバーライド（override）の違いについて、正しく説明しているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. オーバーロードは戻り値の型のみが異なるメソッドを定義することで、オーバーライドは引数の型が異なるメソッドを定義することである。
+b. オーバーロードは同じクラス内でメソッド名が同じでシグネチャ（引数の型、数、順序）が異なるメソッドを定義すること。オーバーライドはサブクラスでスーパークラスのメソッドと全く同じシグネチャで再定義することである。
+c. オーバーロードは継承関係にあるクラス間でのみ可能で、オーバーライドは一つのクラス内で完結する。
+d. `static`メソッドはオーバーライドできるが、オーバーロードはできない。
+
+答え：
+b
+解説：
+オーバーロードは「多重定義」とも呼ばれ、一つのクラス内で同じ名前のメソッドを複数定義する技術です。一方、オーバーライドは「再定義」や「上書き」と呼ばれ、継承関係においてサブクラスがスーパークラスのメソッドの振る舞いを変更する技術です。`static`メソッドはオーバーライドできません（隠蔽されます）。
+
+Q03. 抽象クラスとインターフェースに関する説明のうち、誤っているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 抽象クラスはインスタンスを生成できないが、コンストラクタを持つことができる。
+b. インターフェースは`implements`キーワードを使ってクラスに実装され、クラスは複数のインターフェースを実装できる。
+c. 抽象クラスは抽象メソッドだけでなく、具体的な実装を持つメソッドも定義できる。一方、Java 7以前のインターフェースは抽象メソッドしか持てなかった。
+d. インターフェースを実装したクラスは、そのインターフェースで定義されたすべての抽象メソッドを実装しなければならないが、実装しない選択も可能である。
+
+答え：
+d
+解説：
+インターフェースを実装したクラス（具象クラスである場合）は、そのインターフェースが持つすべての抽象メソッドを実装する義務があります。もし一つでも実装しない抽象メソッドがある場合、そのクラス自身も抽象クラスとして宣言する必要があります。
+
+Q04. 以下の`Shape`インターフェースと、それを実装する`Circle`クラスおよび`Rectangle`クラスを記述してください。
+
+`Shape`インターフェースの仕様：
+- `getArea()`という名前の抽象メソッドを持つ。戻り値は`double`型。
+
+`Circle`クラスの仕様：
+- `Shape`インターフェースを実装する。
+- `radius`（半径）を`double`型で持つ。
+- コンストラクタで`radius`を初期化する。
+- `getArea()`メソッドを実装し、円の面積（半径 * 半径 * π）を返す。`Math.PI`を使用して良い。
+
+`Rectangle`クラスの仕様：
+- `Shape`インターフェースを実装する。
+- `width`（幅）と`height`（高さ）を`double`型で持つ。
+- コンストラクタで`width`と`height`を初期化する。
+- `getArea()`メソッドを実装し、長方形の面積（幅 * 高さ）を返す。
+
+答え：
+```java
+// インターフェース
+public interface Shape {
+    double getArea();
+}
+
+// Circle クラス
+public class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double getArea() {
+        return this.radius * this.radius * Math.PI;
+    }
+}
+
+// Rectangle クラス
+public class Rectangle implements Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public double getArea() {
+        return this.width * this.height;
+    }
+}
+```
+解説：
+`Shape`インターフェースで`getArea()`という「契約」を定義します。`Circle`と`Rectangle`クラスは`implements Shape`によってその契約を守ることを宣言し、それぞれ独自の計算方法で`getArea()`メソッドを実装します。これにより、`Shape`型の変数に`Circle`や`Rectangle`のインスタンスを代入し、同じ`getArea()`呼び出しで異なる面積計算を実行できるというポリモーフィズムが実現します。
+
+Q05. 次のJavaコードの実行結果を答えてください。
+
+```java
+abstract class Figure {
+    abstract void draw();
+}
+
+class Triangle extends Figure {
+    @Override
+    void draw() {
+        System.out.println("三角形を描画します。");
+    }
+}
+
+class Square extends Figure {
+    @Override
+    void draw() {
+        System.out.println("四角形を描画します。");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Figure[] figures = new Figure[2];
+        figures[0] = new Triangle();
+        figures[1] = new Square();
+
+        for (Figure fig : figures) {
+            fig.draw();
+        }
+    }
+}
+```
+
+答え：
+```
+三角形を描画します。
+四角形を描画します。
+```
+
+解説：
+`Figure`という抽象クラスの配列`figures`に、その具象サブクラスである`Triangle`と`Square`のインスタンスを格納しています。ループ内で`fig.draw()`を呼び出すと、`fig`が実際に参照しているインスタンスの型（`Triangle`か`Square`か）に応じて、それぞれオーバーライドされた`draw()`メソッドが実行されます。これがポリモーフィズムの典型的な利用例です。

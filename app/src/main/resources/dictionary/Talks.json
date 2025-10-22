@@ -1,0 +1,100 @@
+{
+  "Innkeeper": {
+    "befores":["welcome"],
+    "choices":["quit", ":pay.100:get.reset/rest_100"],
+    "afters": ["come_again",
+              "thank_you_safe_trip"]
+  },
+  "Merchant": {
+    "befores":["welcome"],
+    "choices":["quit", "buy", "sell"],
+    "afters": ["come_again",
+              ">Merchant>Buy",
+              ">Merchant>Sell"]
+  },
+  "Merchant>Buy": {
+    "befores":["what_would_you_like_to_buy"],
+    "choices":["quit", "weapons_equipment", "items"],
+    "afters": ["come_again",
+              ">Merchant>Buy>Weapons_Equipment",
+              ">Merchant>Buy>Items"]
+  },
+  "Merchant>Buy>Weapons_Equipment": {
+    "befores":["what_kind_of_weapons_equipment"],
+    "choices":["quit", ":buy.gears"],
+    "afters": ["come_again",
+              "thank_you"]
+  },
+  "Merchant>Buy>Items": {
+    "befores":["what_kind_of_items"],
+    "choices":["quit", ":buy.items"],
+    "afters": ["come_again",
+              "thank_you"]
+  },
+  "Merchant>Sell": {
+    "befores":["what_are_you_selling"],
+    "choices":["quit", "weapons_equipment", "items"],
+    "afters": ["come_again",
+              ">Merchant>Sell>Weapons_Equipment",
+              ">Merchant>Sell>Items"]
+  },
+  "Merchant>Sell>Weapons_Equipment": {
+    "befores":["what_weapons_equipment_selling"],
+    "choices":["quit", ":sale.gears"],
+    "afters": ["come_again",
+              "thank_you"]
+  },
+  "Merchant>Sell>Items": {
+    "befores":["what_items_selling"],
+    "choices":["quit", ":sale.items"],
+    "afters": ["come_again",
+              "thank_you"]
+  },
+  "Blacksmith": {
+    "befores":["can_forge_anything"],
+    "choices":["never_mind", ":sale.gears"],
+    "afters": ["let_me_know_if_needed",
+              "stronger_now_thanks"]
+  },
+  "Priest": {
+    "befores":["gods_blessings"],
+    "choices":["quit", ":pay.100:get.reset/pray_100"],
+    "afters": ["god_is_always_waiting",
+              "grant_gods_protection",
+              "thank_you_for_your_hard_work"]
+  },
+  "Townspeople": {
+    "befores":["town_description"],
+    "choices":["ignore", ":get.item/greet", "go_away"],
+    "afters": ["oh_really",
+              "thank_you_take_this",
+              "what_a_terrible_person"]
+  },
+  "Traveler": {
+    "befores":["dying_of_thirst"],
+    "choices":["ignore", ":pay.potion:get.item/give", "dont_give"],
+    "afters": ["oh_really",
+              "thank_you_take_this",
+              "what_a_terrible_person"]
+  },
+  "StartingTown": {
+    "befores":["welcome_to_starting_town"],
+    "afters": ["left_starting_town"]
+  },
+  "Plains": {
+    "befores":["entered_plains"],
+    "afters": ["left_plains"]
+  },
+  "MountainRange": {
+    "befores":["entered_mountain_range"],
+    "afters": ["left_mountain_range"]
+  },
+  "Cave": {
+    "befores":["entered_cave"],
+    "afters": ["left_cave"]
+  },
+  "Desert": {
+    "befores":["entered_desert"],
+    "afters": ["left_desert"]
+  }
+}

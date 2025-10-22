@@ -1,0 +1,116 @@
+Q01. Javaの継承（extends）に関して、次の説明のうち最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. Javaではクラスの多重継承が許されており、一つのサブクラスが複数のスーパークラスを持つことができる。
+b. `private`修飾子で宣言されたスーパークラスのメンバは、サブクラスから直接アクセスできる。
+c. サブクラスのコンストラクタからスーパークラスのコンストラクタを呼び出すには、`super()` を使用し、それはコンストラクタの最初の文でなければならない。
+d. `final`修飾子が付いたクラスは、どのクラスでも継承することができる。
+
+答え：
+c
+解説：
+サブクラスのコンストラクタでは、まずスーパークラスのインスタンスを初期化する必要があります。そのため、`super()`（または`super(引数)`）を呼び出す必要があり、これは必ずコンストラクタの先頭に記述する必要があります。Javaではクラスの多重継承はサポートされていません。`private`メンバは継承されますが、サブクラスから直接アクセスはできません。`final`クラスは継承できません。
+
+Q02. `Object`クラスについて、次の説明のうち正しいものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `Object`クラスは、プログラマが明示的に継承を指定した場合にのみ、そのクラスのスーパークラスとなる。
+b. `Object`クラスは、`toString()`, `equals()`, `hashCode()`などの、すべてのオブジェクトが共通して持つべき基本的なメソッドを提供する。
+c. `Object`クラスの`equals()`メソッドのデフォルトの動作は、二つのオブジェクトの内容が等しいかどうかを比較する。
+d. 配列はオブジェクトではないため、`Object`クラスを継承しない。
+
+答え：
+b
+解説：
+Javaのすべてのクラスは、明示的な`extends`がない場合でも暗黙的に`Object`クラスを継承します。そのため、`Object`クラスで定義されている`toString()`, `equals()`, `hashCode()`などのメソッドは、すべてのクラスで利用可能です。`equals()`のデフォルト実装は、同一のオブジェクト（同じメモリ上のアドレス）であるかを比較します。配列も`Object`クラスを継承するオブジェクトです。
+
+Q03. `instanceof`演算子の役割として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 二つのオブジェクトのハッシュコードが等しいかどうかを調べる。
+b. あるオブジェクトが、特定のクラスまたはそのサブクラスのインスタンスであるかどうかを判定する。
+c. スーパークラスのメソッドをサブクラスでオーバーライドする。
+d. オブジェクトの参照を、より具体的なクラスの型に変換（キャスト）する。
+
+答え：
+b
+解説：
+`instanceof`演算子は、参照変数が指し示すインスタンスが、指定したクラス型またはそのインターフェースを実装しているかどうかを実行時にチェックするために使用されます。このチェックにより、安全なダウンキャスト（スーパークラス型からサブクラス型への変換）などが可能になります。
+
+Q04. 以下の`Animal`クラスを継承した`Dog`クラスを記述してください。
+
+`Animal`クラス：
+```java
+public class Animal {
+    private String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void makeSound() {
+        System.out.println("動物の鳴き声");
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+```
+
+`Dog`クラスの仕様：
+- `Animal`クラスを継承する。
+- スーパークラスのコンストラクタを呼び出すコンストラクタを持つ。
+- `makeSound()`メソッドをオーバーライドして、「ワンワン！」と出力するように変更する。
+
+答え：
+```java
+public class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println("ワンワン！");
+    }
+}
+```
+解説：
+`extends`キーワードを使って`Animal`クラスを継承します。`Dog`のコンストラクタ内では`super(name)`を呼び出して、スーパークラスである`Animal`のコンストラクタを実行し、`name`フィールドを初期化します。`makeSound`メソッドを`@Override`アノテーションを付けてオーバーライドし、犬独自の鳴き声を出力するように実装します。
+
+Q05. 次のコードを実行したときの結果を答えてください。
+
+```java
+class Vehicle {}
+class Car extends Vehicle {}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle v1 = new Vehicle();
+        Vehicle v2 = new Car();
+        Car c1 = new Car();
+
+        System.out.println(v1 instanceof Vehicle);
+        System.out.println(v2 instanceof Car);
+        System.out.println(v2 instanceof Vehicle);
+        System.out.println(c1 instanceof Vehicle);
+        // System.out.println(v1 instanceof Car); // コンパイルエラー
+    }
+}
+```
+
+答え：
+```
+true
+true
+true
+true
+```
+
+解説：
+- `v1 instanceof Vehicle`: `v1`は`Vehicle`のインスタンスなので`true`。
+- `v2 instanceof Car`: `v2`は`Car`のインスタンスを参照しているので`true`。
+- `v2 instanceof Vehicle`: `Car`は`Vehicle`のサブクラスなので、`v2`は`Vehicle`のインスタンスでもあるため`true`。
+- `c1 instanceof Vehicle`: `Car`は`Vehicle`のサブクラスなので、`c1`は`Vehicle`のインスタンスでもあるため`true`。
+- `v1 instanceof Car`: `v1`は`Vehicle`のインスタンスであり、サブクラスである`Car`のインスタンスではないため、これはコンパイル時に`false`と判断され、コンパイラによっては到達不能コードとしてエラーを出すことがあります。実行されれば`false`です。

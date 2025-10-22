@@ -1,0 +1,110 @@
+Q01. JavaのストリームAPI（Stream API）に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. ストリームはデータソースそのものであり、要素を内部に保持するデータ構造である。
+b. ストリームの操作は、常に元のデータソース（コレクションなど）を直接変更する。
+c. ストリームは一度しか消費できず、一度終端操作を行うと再利用することはできない。
+d. ストリームの操作は「終端操作」から始まり、「中間操作」で終わるのが一般的である。
+
+答え：
+c
+解説：
+ストリームはデータソース（コレクション、配列など）から生成され、要素のパイプライン処理を可能にしますが、データそのものを格納するわけではありません。ストリーム操作は非破壊的で、元のデータソースを変更しません。パイプラインは、0個以上の中間操作と1個の終端操作で構成され、終端操作が実行されるとストリームは閉じられ、再利用できなくなります。
+
+Q02. ストリームAPIの「中間操作」と「終端操作」に関する説明として、正しいものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `filter`や`map`は終端操作であり、`forEach`や`collect`は中間操作である。
+b. 中間操作は新しいストリームを返し、遅延評価される。終端操作はストリームを消費して最終的な結果（値や副作用）を生成する。
+c. 一つのストリームパイプラインには、複数の中間操作と複数の終端操作を含めることができる。
+d. 中間操作は、終端操作が呼び出される前に即座に実行される。
+
+答え：
+b
+解説：
+`filter`（要素の絞り込み）や`map`（要素の変換）のような中間操作は、それ自身が新しいストリームを返します。これらの操作は、終端操作が呼び出されるまで実行されない「遅延評価」の性質を持ちます。`forEach`（各要素への処理）や`collect`（結果の集約）のような終端操作が呼び出された時点で、初めてパイプライン全体の処理が実行されます。パイプラインに終端操作は一つしか含められません。
+
+Q03. `map`操作と`flatMap`操作の違いに関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `map`は各要素を1対1で変換するのに対し、`flatMap`は各要素を0個以上の要素を持つ新しいストリームに変換し、それらのストリームを一つの平坦なストリームに結合する。
+b. `map`はストリームの要素数を変更できないが、`flatMap`は変更できる。
+c. `flatMap`は`map`のエイリアス（別名）であり、機能は全く同じである。
+d. `map`は`Function`を引数にとり、`flatMap`は`Predicate`を引数にとる。
+
+答え：
+a
+解説：
+`map`は`Stream<T>`を`Stream<R>`に変換します（例：`String`のストリームを`Integer`のストリームに）。一方、`flatMap`は、各要素がそれ自体ストリームになるような場合に（例：`Stream<List<String>>`）、それらを一つのストリーム（`Stream<String>`）に「平坦化」するために使われます。`map(list -> list.stream())`の結果は`Stream<Stream<String>>`になりますが、`flatMap(list -> list.stream())`の結果は`Stream<String>`になります。
+
+Q04. 以下の`Person`クラスのリストがあります。このリストから、年齢が20歳以上の人だけを抽出し、その名前（`String`）のリストを新しく作成するコードをストリームAPIを用いて記述してください。
+
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+List<Person> people = Arrays.asList(
+    new Person("Alice", 18),
+    new Person("Bob", 25),
+    new Person("Charlie", 20),
+    new Person("David", 30)
+);
+```
+
+答え：
+```java
+List<String> adultNames = people.stream() // 1. ストリームを生成
+    .filter(p -> p.getAge() >= 20)      // 2. 20歳以上の人を抽出（中間操作）
+    .map(Person::getName)              // 3. Personオブジェクトを名前（String）に変換（中間操作）
+    .collect(Collectors.toList());     // 4. 結果をリストに集約（終端操作）
+
+System.out.println(adultNames); // [Bob, Charlie, David]
+```
+解説：
+1. `people.stream()`でリストからストリームを生成します。
+2. `filter(p -> p.getAge() >= 20)`で、年齢が20歳以上の`Person`オブジェクトのみを通過させます。
+3. `map(Person::getName)`で、フィルタリングされた`Person`オブジェクトのストリームを、その名前（`String`）のストリームに変換します。ここではメソッド参照を使っていますが、`map(p -> p.getName())`というラムダ式でも同じです。
+4. `collect(Collectors.toList())`で、最終的な名前のストリームを新しい`List<String>`にまとめます。
+
+Q05. 整数のリスト`List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);`があります。ストリームAPIの`reduce`操作を使って、リスト内のすべての数値の合計を計算するコードを記述してください。
+
+答え：
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // reduce操作で合計を計算
+        int sum = numbers.stream()
+                         .reduce(0, (a, b) -> a + b);
+
+        System.out.println("合計: " + sum); // 合計: 15
+
+        // メソッド参照を使った場合
+        int sumWithMethodRef = numbers.stream()
+                                      .reduce(0, Integer::sum);
+        System.out.println("合計 (メソッド参照): " + sumWithMethodRef); // 合計 (メソッド参照): 15
+    }
+}
+```
+解説：
+`reduce`は、ストリームの要素を畳み込んで単一の結果を生成する終端操作です。`reduce(0, (a, b) -> a + b)`は、初期値`0`から始め、ストリームの各要素を順番に`b`として取り出し、累積値`a`と`b`を足し合わせた結果を次の累積値`a`として処理を繰り返します。`(a, b) -> a + b`の部分は、`Integer`クラスの`sum`メソッドで代用できるため、メソッド参照`Integer::sum`を使うとより簡潔に記述できます。

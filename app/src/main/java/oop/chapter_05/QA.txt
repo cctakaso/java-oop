@@ -1,0 +1,80 @@
+Q01. Javaの基本データ型（プリミティブ型）とラッパークラスに関する説明として、誤っているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 基本データ型は、`int`や`double`などがあり、オブジェクトではなく値そのものを保持する。
+b. ラッパークラスは、基本データ型の値をオブジェクトとして扱うために提供されており、`Integer`や`Double`などがある。
+c. 基本データ型からラッパークラスのインスタンスへ自動的に変換されることを「アンボクシング」、その逆を「オートボクシング」と呼ぶ。
+d. ラッパークラスのインスタンスは`null`を保持できるが、基本データ型は`null`を保持できない。
+
+答え：
+c
+解説：
+基本データ型からラッパークラスのインスタンスへの自動変換は「オートボクシング（autoboxing）」、ラッパークラスのインスタンスから基本データ型への自動変換は「アンボクシング（unboxing）」と呼ばれます。設問の説明は逆になっています。
+
+Q02. `String`クラスのインスタンス（文字列オブジェクト）に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `String`オブジェクトは「可変（mutable）」であり、一度作成した後でもその内容（文字列）を自由に変更できる。
+b. 文字列の等価性を比較する場合、`==`演算子を使用することが常に推奨される。
+c. `String`クラスは`final`であり、他のクラスが`String`クラスを継承することはできない。
+d. `split`メソッドは、文字列を`char`の配列に変換するために使用する。
+
+答え：
+c
+解説：
+`String`クラスは`final`として宣言されているため、継承してサブクラスを作成することはできません。また、`String`オブジェクトは「不変（immutable）」であり、一度作成するとその内容は変更できません（`replace`や`substring`などのメソッドは新しい`String`オブジェクトを返します）。文字列の内容を比較するには`equals()`メソッドを使用すべきで、`==`は参照が同じ（同一オブジェクト）であるかを比較します。`split`は文字列を指定した区切り文字で分割し、文字列の配列を返します。
+
+Q03. `Math`クラスと`Random`クラスに関する説明として、正しいものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `Math`クラスのメソッドはすべてインスタンスメソッドなので、`new Math()`としてから利用する必要がある。
+b. `Math.random()`は、0.0以上1.0以下の`double`型の乱数を返す。
+c. `Random`クラスの`nextInt(n)`は、0からn（nを含む）までの範囲の`int`型の乱数を返す。
+d. `Math.round(3.5)`は、四捨五入により`long`型の`4`を返す。
+
+答え：
+d
+解説：
+`Math.round()`は引数に最も近い整数を返します。引数が`float`なら`int`、`double`なら`long`を返します。3.5は4に丸められます。`Math`クラスのメソッドはすべて`static`なのでインスタンス化は不要です。`Math.random()`が返す値は0.0以上1.0未満です。`Random.nextInt(n)`が返す値は0からn-1までの範囲です。
+
+Q04. Java 8で導入されたDate and Time API (`java.time`パッケージ) を使用して、現在日時を取得し、「yyyy年MM月dd日 HH時mm分ss秒」の形式で表示するコードを記述してください。
+
+答え：
+```java
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Main {
+    public static void main(String[] args) {
+        // 現在日時を取得
+        LocalDateTime now = LocalDateTime.now();
+
+        // フォーマッタを定義
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH時mm分ss秒");
+
+        // 書式設定して表示
+        String formattedDateTime = now.format(formatter);
+        System.out.println(formattedDateTime);
+    }
+}
+```
+解説：
+`java.time.LocalDateTime.now()`で現在のマシン設定に基づいた日時を取得します。次に、`java.time.format.DateTimeFormatter.ofPattern()`を使って、指定したパターンのフォーマッタを作成します。最後に、`LocalDateTime`オブジェクトの`format()`メソッドにフォーマッタを渡すことで、目的の書式に変換された文字列を得ることができます。
+
+Q05. 文字列`"Java,Programming,Language"`をカンマ`,`で分割し、各単語をコンソールに1行ずつ出力するコードを記述してください。
+
+答え：
+```java
+public class Main {
+    public static void main(String[] args) {
+        String text = "Java,Programming,Language";
+        String[] words = text.split(",");
+
+        for (String word : words) {
+            System.out.println(word);
+        }
+    }
+}
+```
+解説：
+`String`クラスの`split()`メソッドは、引数で指定された正規表現（この場合はカンマ`,`）を区切り文字として文字列を分割し、その結果を文字列の配列として返します。その後、拡張for文を使って配列の各要素を順番に取り出し、`System.out.println()`で出力しています。

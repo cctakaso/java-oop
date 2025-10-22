@@ -1,0 +1,135 @@
+{
+  "CasualClothes": {
+    "gearType": "Clothes",
+    "itemType": "Gear",
+    "name": "CasualClothes",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Defence",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "CasualShoes": {
+    "gearType": "Shoes",
+    "itemType": "Gear",
+    "name": "CasualShoes",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Defence",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "RustySword": {
+    "gearType": "Sword",
+    "itemType": "Gear",
+    "characterTypes": ["Gladiator"],
+    "name": "RustySword",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "WorkGloves": {
+    "gearType": "gloves",
+    "itemType": "Gear",
+    "characterTypes": ["MartialArtist"],
+    "name": "WorkGloves",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "BadBow": {
+    "gearType": "Bow",
+    "itemType": "Gear",
+    "characterTypes": ["Archer"],
+    "name": "BadBow",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "BrokenCane": {
+    "gearType": "Wand",
+    "itemType": "Gear",
+    "characterTypes": ["Wizard", "Bishop"],
+    "name": "BrokenCane",
+    "conditions": {
+      "children": [
+        {
+          "type": "Attack",
+          "point": 3,
+          "rate": 100
+        },
+        {
+          "type": "MagicAttack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "Hammer": {
+    "gearType": "hammer",
+    "itemType": "Gear",
+    "characterTypes": ["Blacksmith"],
+    "name": "Hammer",
+    "conditions": {
+      "children": [
+        {
+          "type": "Attack",
+          "point": 6,
+          "rate": 100
+        }
+      ]
+    }
+  }
+}

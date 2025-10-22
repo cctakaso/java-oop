@@ -1,0 +1,175 @@
+{
+  "Bill": {
+    "name": "Bill",
+    "itemType": "Money",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "Coin": {
+    "name": "Coin",
+    "itemType": "Money",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "Herb": {
+    "name": "Herb",
+    "itemType": "Herb",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 100,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "Potion": {
+    "name": "Potion",
+    "itemType": "Potion",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 300,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "SuperPotion": {
+    "name": "SuperPotion",
+    "itemType": "SuperPotion",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "HyperPotion": {
+    "name": "HyperPotion",
+    "itemType": "HyperPotion",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "MagicPotion": {
+    "name": "MagicPotion",
+    "itemType": "MagicPotion",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 300,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "SuperMagicPotion": {
+    "name": "SuperMagicPotion",
+    "itemType": "SuperMagicPotion",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "HyperMagicPotion": {
+    "name": "HyperMagicPotion",
+    "itemType": "HyperMagicPotion",
+    "pt": null,
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+
+  "Antidote": {
+    "name": "Antidote",
+    "itemType": "Antidote",
+    "conditions": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "Poisoned",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  }
+
+}

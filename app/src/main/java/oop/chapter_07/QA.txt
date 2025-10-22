@@ -1,0 +1,79 @@
+Q01. Javaのラムダ式に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. ラムダ式は、任意のクラスやメソッドの代替として使用できる。
+b. ラムダ式は、主に`@FunctionalInterface`アノテーションが付いた、抽象メソッドを一つだけ持つインターフェース（関数型インターフェース）の実装を簡潔に記述するために使用される。
+c. ラムダ式は、それ自身が状態（フィールド）を持つことができる。
+d. ラムダ式は、`new`キーワードを使ってインスタンス化する必要がある。
+
+答え：
+b
+解説：
+ラムダ式は、関数型インターフェースの匿名クラスによる実装を、より短く直感的に記述するためのシンタックスシュガーです。これにより、メソッドを引数として渡すような、関数型プログラミングのスタイルをJavaで実現しやすくなります。ラムダ式は状態を持たず、`new`も不要です。
+
+Q02. 関数型インターフェース（Functional Interface）の条件として、正しいものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `static`メソッドと`default`メソッドを一つずつ持つインターフェース。
+b. 抽象メソッドを一つだけ持つインターフェース（ただし、`Object`クラスの`public`メソッドをオーバーライドする抽象メソッドは数に含めない）。
+c. `@FunctionalInterface`アノテーションが必ず付与されていなければならない。
+d. 抽象メソッドを一つも持たないインターフェース。
+
+答え：
+b
+解説：
+関数型インターフェースの定義は、実装すべき抽象メソッドが一つだけであることです。`@FunctionalInterface`アノテーションは、コンパイラにそのインターフェースが関数型インターフェースの規約に従っているかをチェックさせるためのものであり、必須ではありません（が、付けることが推奨されます）。`static`メソッドや`default`メソッドはいくつあっても構いません。
+
+Q03. メソッド参照（Method Reference）に関する説明として、誤っているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. ラムダ式が既存のメソッドを呼び出すだけの処理である場合に、より簡潔に記述する方法である。
+b. `System.out::println`は、`System.out`インスタンスの`println`メソッドを呼び出すメソッド参照の一例である。
+c. `String::toUpperCase`は、`String`クラスのインスタンスメソッド`toUpperCase`を呼び出すメソッド参照である。
+d. メソッド参照は、ラムダ式よりも常に実行速度が速い。
+
+答え：
+d
+解説：
+メソッド参照は、ラムダ式をより読みやすくするためのシンタックスシュガーであり、パフォーマンス上の優位性を保証するものではありません。多くの場合、コンパイラによって同等のバイトコードに変換されます。可読性の向上が主な目的です。
+
+Q04. `java.util.function`パッケージに定義されている標準的な関数型インターフェースのうち、引数を一つ受け取り、`boolean`値の戻り値を返すものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `Consumer<T>`
+b. `Supplier<T>`
+c. `Function<T, R>`
+d. `Predicate<T>`
+
+答え：
+d
+解説：
+- `Consumer<T>`: T型の引数を1つ受け取り、戻り値なし (`void accept(T t)`)。
+- `Supplier<T>`: 引数を取らず、T型の戻り値を返す (`T get()`)。
+- `Function<T, R>`: T型の引数を1つ受け取り、R型の戻り値を返す (`R apply(T t)`)。
+- `Predicate<T>`: T型の引数を1つ受け取り、`boolean`型の戻り値を返す (`boolean test(T t)`)。主に条件判断に使われます。
+
+Q05. `List<String>`があり、その中から長さが5文字以上の文字列だけを抽出して、新しいリストを作成するコードをラムダ式を用いて記述してください。
+
+元のリスト： `List<String> list = Arrays.asList("Java", "Python", "Ruby", "Go", "JavaScript");`
+
+答え：
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> list = Arrays.asList("Java", "Python", "Ruby", "Go", "JavaScript");
+
+        List<String> longWords = list.stream()
+                                     .filter(s -> s.length() >= 5)
+                                     .collect(Collectors.toList());
+
+        System.out.println(longWords); // [Python, JavaScript]
+    }
+}
+```
+解説：
+リストからストリームを作成し、`filter`中間操作を使います。`filter`メソッドは`Predicate`を引数に取ります。ここではラムダ式`s -> s.length() >= 5`を渡し、文字列の長さが5以上であるという条件を指定しています。条件を満たす要素だけがストリームに残り、最後に`collect(Collectors.toList())`で新しいリストにまとめています。

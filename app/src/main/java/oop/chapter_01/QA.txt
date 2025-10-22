@@ -1,0 +1,107 @@
+Q01. Javaのクラス(class)に関して、次の説明のうち最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. クラスは、インスタンスの具体的な値そのものである。
+b. クラスは、オブジェクトの設計図であり、フィールド（状態）とメソッド（振る舞い）を定義する。
+c. クラスから生成された実体のことを、コンストラクタと呼ぶ。
+d. 1つのクラスからは1つのインスタンスしか生成できない。
+
+答え：
+b
+解説：
+クラスはオブジェクトの雛形（設計図）です。フィールド（属性や状態）とメソッド（操作や振る舞い）を定義します。この設計図を基に生成されたオブジェクトの実体がインスタンスです。
+
+Q02. カプセル化の主な目的として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 関連するクラスを一つのパッケージにまとめること。
+b. データ（フィールド）と、そのデータを操作するメソッドを一つにまとめ、外部から直接アクセスできないように保護すること。
+c. 全てのフィールドとメソッドをpublicにして、どこからでもアクセスできるようにすること。
+d. インスタンスを生成せずにメソッドを呼び出せるようにすること。
+
+答え：
+b
+解説：
+カプセル化は、データとそのデータを操作するメソッドをクラス内に閉じ込め、データの隠蔽（情報隠蔽）を実現します。これにより、意図しないデータの変更を防ぎ、コードの保守性や再利用性を高めることができます。ゲッターやセッターを介して、安全にデータへアクセスさせることが一般的です。
+
+Q03. コンストラクタについて、次の説明のうち誤っているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. コンストラクタは、クラス名と同じ名前を持つ特別なメソッドである。
+b. コンストラクタは、インスタンス生成時に自動的に呼び出され、主にフィールドの初期化に使われる。
+c. 引数を持つコンストラクタを定義した場合でも、引数なしのデフォルトコンストラクタは自動的に提供される。
+d. コンストラクタは戻り値を指定しない。
+
+答え：
+c
+解説：
+プログラマが引数を持つコンストラクタを一つでも定義すると、コンパイラは引数なしのデフォルトコンストラクタを自動的に追加しません。引数なしのコンストラクタも必要な場合は、明示的に定義する必要があります。
+
+Q04. 以下の仕様を満たす`Book`クラスをJavaで記述してください。
+
+仕様：
+- `title`（String型）と`author`（String型）という二つのprivateなフィールドを持つ。
+- `title`と`author`を引数に受け取り、フィールドを初期化するコンストラクタを持つ。
+- フィールドの値を表示する`printDetails()`メソッドを持つ。出力形式は「Title: [タイトル], Author: [著者]」とする。
+
+答え：
+```java
+public class Book {
+    private String title;
+    private String author;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public void printDetails() {
+        System.out.println("Title: " + this.title + ", Author: " + this.author);
+    }
+}
+```
+解説：
+クラスのフィールドは`private`でカプセル化します。コンストラクタで受け取った値でフィールドを初期化します。`printDetails`メソッドでは、`this`キーワードを使ってインスタンス自身のフィールドにアクセスし、その値をコンソールに出力します。
+
+Q05. 次のJavaコードのスニペットは何を出力しますか？
+
+```java
+class Counter {
+    private static int classCounter = 0;
+    private int instanceCounter = 0;
+
+    public Counter() {
+        classCounter++;
+        this.instanceCounter++;
+    }
+
+    public static int getClassCounter() {
+        return classCounter;
+    }
+
+    public int getInstanceCounter() {
+        return this.instanceCounter;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Counter c1 = new Counter();
+        Counter c2 = new Counter();
+        System.out.println("Class Counter: " + Counter.getClassCounter());
+        System.out.println("c1 Instance Counter: " + c1.getInstanceCounter());
+        System.out.println("c2 Instance Counter: " + c2.getInstanceCounter());
+    }
+}
+```
+
+答え：
+```
+Class Counter: 2
+c1 Instance Counter: 1
+c2 Instance Counter: 1
+```
+
+解説：
+`classCounter`は`static`フィールド（クラス変数）であるため、`Counter`クラスのすべてのインスタンスで共有されます。インスタンスが2回生成されるため、値は2になります。
+一方、`instanceCounter`はインスタンスフィールド（インスタンス変数）であるため、各インスタンス（`c1`と`c2`）がそれぞれ独自に保持します。したがって、`c1`と`c2`の`instanceCounter`はそれぞれ1になります。

@@ -1,0 +1,95 @@
+Q01. Javaのパッケージ（package）に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. パッケージは、関連するインターフェースのみをまとめるための仕組みである。
+b. ソースファイルの先頭で`package`文を宣言することで、そのファイル内のクラスが特定のパッケージに属することを指定する。
+c. `import`文を使わなくても、異なるパッケージに属するクラスを常に単純名（クラス名のみ）で利用できる。
+d. すべてのクラスは、必ずいずれかの名前付きパッケージに属さなければならない。
+
+答え：
+b
+解説：
+パッケージは、関連するクラスやインターフェースなどをグループ化するための名前空間を提供します。ソースファイルの先頭にある`package`宣言で所属パッケージを指定します。異なるパッケージのクラスを利用するには、通常`import`文でクラスをインポートするか、完全修飾名（`パッケージ名.クラス名`）で指定する必要があります。`package`宣言がない場合、そのクラスは「無名パッケージ」に属します。
+
+Q02. アクセス修飾子に関する次の説明のうち、誤っているものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `public`で宣言されたメンバは、どのクラスからでもアクセスできる。
+b. `protected`で宣言されたメンバは、同じパッケージ内のクラス、または異なるパッケージであってもそのクラスを継承したサブクラスからアクセスできる。
+c. アクセス修飾子を何も指定しない場合（パッケージプライベート）、そのメンバは同じクラス内からのみアクセスできる。
+d. `private`で宣言されたメンバは、そのメンバが定義されているクラス内からのみアクセスできる。
+
+答え：
+c
+解説：
+アクセス修飾子を何も指定しない場合、そのアクセスレベルは「パッケージプライベート（デフォルトアクセス）」となります。これにより、同じパッケージに属する他のクラスからもアクセスできます。同じクラス内からのみアクセスを許可するのは`private`修飾子です。
+
+Q03. `import`文の役割として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. 他のソースファイルのコードを、自らのファイルに物理的にコピーして取り込む。
+b. 他のパッケージに属するクラスやインターフェースを、その単純名（クラス名のみ）で使用できるようにする。
+c. プログラムの実行に必要なライブラリファイルを、コンパイル時に指定する。
+d. クラスに別名（エイリアス）を付けて、名前の衝突を避ける。
+
+答え：
+b
+解説：
+`import`文は、他のパッケージにあるクラスなどを、毎回完全修飾名で記述する手間を省くために使用します。`import`することで、コンパイラは単純名がどのパッケージのクラスを指すのかを解決できるようになります。`import static`を使うと、staticメンバ（フィールドやメソッド）をクラス名なしで利用することもできます。
+
+Q04. 以下の2つのファイル`com/example/utils/StringUtils.java`と`com/example/Main.java`を作成してください。
+
+`StringUtils.java`の仕様：
+- パッケージは`com.example.utils`とする。
+- `public`なクラス`StringUtils`を定義する。
+- `public`で`static`なメソッド`isEmpty(String str)`を定義する。このメソッドは、引数の文字列が`null`または空文字列の場合に`true`を返す。
+
+`Main.java`の仕様：
+- パッケージは`com.example`とする。
+- `com.example.utils.StringUtils`クラスをインポートする。
+- `main`メソッド内で`StringUtils.isEmpty()`を呼び出し、その結果をコンソールに出力する。テストケースとして、`"test"`、`""`、`null`の3つを試すこと。
+
+答え：
+```java
+// ファイル: com/example/utils/StringUtils.java
+package com.example.utils;
+
+public class StringUtils {
+    public static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+}
+
+// ファイル: com/example/Main.java
+package com.example;
+
+import com.example.utils.StringUtils;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("\"test\" is empty? " + StringUtils.isEmpty("test"));
+        System.out.println("\"\" is empty? " + StringUtils.isEmpty(""));
+        System.out.println("null is empty? " + StringUtils.isEmpty(null));
+    }
+}
+```
+解説：
+`StringUtils.java`では`package com.example.utils;`を宣言し、クラスとメソッドを`public`にすることで、他のパッケージからアクセスできるようにします。`Main.java`では`import com.example.utils.StringUtils;`によって`StringUtils`クラスをインポートし、`main`メソッド内で単純名`StringUtils`を使って`static`メソッド`isEmpty`を呼び出しています。
+
+Q05. クラス、メソッド、フィールドに適用できるアクセス修飾子のうち、最もアクセス範囲が広いものから狭いものへ正しく並べられているのはどれですか？
+
+選択肢：
+a. `public` > `protected` > `private` > パッケージプライベート
+b. `public` > パッケージプライベート > `protected` > `private`
+c. `public` > `protected` > パッケージプライベート > `private`
+d. `protected` > `public` > パッケージプライベート > `private`
+
+答え：
+c
+解説：
+Javaのアクセス修飾子のアクセス範囲は、広い順に以下のようになります。
+1.  `public`: すべてのクラスからアクセス可能。
+2.  `protected`: 同じパッケージ内のクラス、および別パッケージのサブクラスからアクセス可能。
+3.  パッケージプライベート（修飾子なし）: 同じパッケージ内のクラスからのみアクセス可能。
+4.  `private`: 同一クラス内からのみアクセス可能。
+

@@ -1,0 +1,104 @@
+Q01. Javaの例外処理に関する説明として、最も適切なものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `try`ブロック内で発生した例外は、必ず`catch`ブロックで捕捉しなければならず、`finally`ブロックは省略できない。
+b. `try-catch-finally`構文において、`finally`ブロック内のコードは、`try`ブロックで例外が発生したかどうかにかかわらず、常に実行される（ただし、JVMが終了するような特殊なケースを除く）。
+c. `Error`クラスのサブクラス（例: `OutOfMemoryError`）は、プログラムで回復すべき一般的なエラーであり、積極的に`catch`すべきである。
+d. `throw`キーワードは例外を捕捉するために使い、`throws`キーワードは例外を発生させるために使う。
+
+答え：
+b
+解説：
+`finally`ブロックは、リソースの解放（ファイルやネットワーク接続のクローズなど）のように、処理の成否にかかわらず必ず実行したい後処理を記述するために使われます。`Error`は通常、プログラム側で回復不可能な致命的な問題を示します。`throw`は例外を意図的に発生（スロー）させるために、`throws`はメソッドが特定の例外をスローする可能性があることを宣言するために使います。
+
+Q02. 「チェック例外（Checked Exception）」と「非チェック例外（Unchecked Exception）」に関する説明として、正しいものはどれですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `RuntimeException`とそのサブクラスはチェック例外であり、コンパイラが`try-catch`または`throws`宣言を強制する。
+b. `IOException`や`SQLException`は非チェック例外であり、プログラマが処理を記述しなくてもコンパイルエラーにはならない。
+c. チェック例外は、プログラムのバグ（論理的誤り）が原因であることが多く、非チェック例外は、実行時の外部環境（ファイルの存在など）が原因であることが多い。
+d. `RuntimeException`とそのサブクラス（例: `NullPointerException`, `IllegalArgumentException`）は非チェック例外に分類され、これらはコンパイラによる処理の強制がない。
+
+答え：
+d
+解説：
+非チェック例外は`RuntimeException`と`Error`およびそれらのサブクラスを指します。これらは、プログラムの論理的な誤り（バグ）に起因することが多く、必ずしも`try-catch`で囲む必要はありません。一方、チェック例外（`IOException`など、`RuntimeException`のサブクラスではない`Exception`のサブクラス）は、呼び出し側が適切に処理（回復）できる可能性のある外部要因によるエラーを示し、コンパイラが`try-catch`か`throws`宣言を強制します。
+
+Q03. `try-with-resources`文（Java 7で導入）の主な利点は何ですか？
+         次の４つから正しい答えを選びなさい。
+選択肢：
+a. `try`ブロックの実行速度を向上させる。
+b. `catch`ブロックを記述しなくても、すべての例外を自動的に無視できる。
+c. `AutoCloseable`インターフェースを実装したリソース（ファイル、DB接続など）を`try`の括弧内で宣言すると、`try`ブロックの終了時に自動的に`close()`メソッドが呼び出され、リソースの解放が保証される。
+d. `finally`ブロックをより柔軟に、複数記述できるようになる。
+
+答え：
+c
+解説：
+`try-with-resources`文は、リソース管理を大幅に簡素化し、`finally`ブロックでの煩雑な`close()`処理や、そこで発生しうる例外の処理を不要にします。これにより、コードが読みやすくなり、リソースリークのバグを減らすことができます。
+
+Q04. 0で割り算を行った際に発生する`ArithmeticException`を捕捉し、「ゼロで割ることはできません。」とメッセージを出力するJavaコードを記述してください。
+
+答え：
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            int result = 10 / 0;
+            System.out.println("結果: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("ゼロで割ることはできません。");
+            // 例外の詳細を出力する場合
+            // e.printStackTrace();
+        }
+        System.out.println("プログラムを終了します。");
+    }
+}
+```
+解説：
+ゼロ除算は`ArithmeticException`（非チェック例外）をスローします。この例外が発生する可能性のあるコード`10 / 0`を`try`ブロックで囲みます。例外が発生すると、実行は直ちに`catch (ArithmeticException e)`ブロックに移り、指定されたメッセージが出力されます。例外が発生してもプログラムはクラッシュせず、`catch`ブロックの後の処理（「プログラムを終了します。」の出力）が続行されます。
+
+Q05. 独自の例外クラス`InvalidAgeException`を作成し、年齢が負の場合にその例外をスローする`setAge`メソッドを持つ`Person`クラスを記述してください。
+
+`InvalidAgeException`の仕様：
+- `Exception`クラスを継承する。
+- 文字列メッセージを受け取るコンストラクタを持つ。
+
+`Person`クラスの仕様：
+- `age`フィールド（`int`型）を持つ。
+- `setAge(int age)`メソッドを持つ。このメソッドは、引数の`age`が負の場合に`InvalidAgeException`をスローする。そうでなければ`age`フィールドを設定する。
+
+答え：
+```java
+// 独自の例外クラス
+public class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+
+// Personクラス
+public class Person {
+    private int age;
+
+    public void setAge(int age) throws InvalidAgeException {
+        if (age < 0) {
+            throw new InvalidAgeException("年齢に負の値は設定できません: " + age);
+        }
+        this.age = age;
+        System.out.println("年齢が " + age + " に設定されました。");
+    }
+
+    public static void main(String[] args) {
+        Person person = new Person();
+        try {
+            person.setAge(25);
+            person.setAge(-5);
+        } catch (InvalidAgeException e) {
+            System.out.println("エラー: " + e.getMessage());
+        }
+    }
+}
+```
+解説：
+まず`Exception`を継承してカスタム例外`InvalidAgeException`を定義します。`Person`クラスの`setAge`メソッドでは、引数が不正（負の値）であるかをチェックし、不正であれば`throw new InvalidAgeException(...)`で例外インスタンスを生成してスローします。このメソッドはチェック例外をスローする可能性があるため、メソッドシグネチャに`throws InvalidAgeException`を宣言する必要があります。呼び出し側（`main`メソッド）では`try-catch`ブロックでこの例外を捕捉して処理します。
