@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 /**
@@ -74,7 +73,7 @@ public class App_1002 {
         // --- 4. さらにモダンな方法 (Files.lines)  ---
         // `java.nio.file.Files`クラスを使うと、1行でStreamを生成できる。
         System.out.println("\n--- 4. Files.lines()を使ったさらにモダンな方法 ---");
-        try (Stream<String> lines = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {
+        try (Stream<String> lines = Files.lines(Path.of(fileName), StandardCharsets.UTF_8)) {
             long infoCount = lines.filter(line -> line.contains("INFO")).count();
             System.out.println("日誌内の 'INFO' の件数: " + infoCount);
         } catch (IOException e) {

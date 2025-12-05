@@ -27,7 +27,7 @@ public class App_0601 {
         List<String> questLog = new ArrayList<>();
         questLog.add("ゴブリンを5匹討伐する");
         // questLog.add(5); // コンパイルエラー！ String以外は入れられない。
-        String firstQuest = questLog.get(0); // キャスト不要で安全に取り出せる
+        String firstQuest = questLog.getFirst(); // キャスト不要で安全に取り出せる
         System.out.println("最初のクエスト: " + firstQuest);
 
         // --- 2. ArrayListの基本的な使い方 ---
@@ -47,7 +47,7 @@ public class App_0601 {
         }
 
         // 要素の削除 (remove)
-        questLog.remove(0); // 0番目の「ゴブリン討伐」を完了したので削除
+        questLog.removeFirst(); // 0番目の「ゴブリン討伐」を完了したので削除
         System.out.println("\nクエスト「ゴブリン討伐」を完了！");
         System.out.println("【残りのクエスト一覧】");
         for (String quest : questLog) {

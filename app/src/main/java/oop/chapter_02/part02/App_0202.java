@@ -27,16 +27,13 @@ public class App_0202 {
         System.out.println("\n--- ペットの正体を確認し、特別な行動をさせる ---");
 
         // `instanceof` で、インスタンスの「本当の型」を安全に確認する
-        if (myPet1 instanceof Dog_0202) {
+        if (myPet1 instanceof Dog_0202 pochi) {
             System.out.println(myPet1.name + "は犬でした。");
-            // 確認できたので、安全に `Dog_0105` 型へキャスト（型変換）できる
-            Dog_0202 pochi = (Dog_0202) myPet1;
             pochi.wagTail(); // Dog独自のメソッドが呼べる！
         }
 
-        if (myPet2 instanceof Cat_0202) {
+        if (myPet2 instanceof Cat_0202 tama) {
             System.out.println(myPet2.name + "は猫でした。");
-            Cat_0202 tama = (Cat_0202) myPet2;
             tama.hide(); // Cat独自のメソッドが呼べる！
         }
 

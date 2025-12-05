@@ -1,6 +1,7 @@
 package oop.chapter_05;
 
-import java.util.Random; // Randomクラスを使うためにインポート
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom; // Randomクラスを使うためにインポート
 
 /**
  * 第5章 Part 1: 基本型とラッパークラス、数値の扱い
@@ -53,7 +54,7 @@ public class App_0501 {
 
         // 4a. お手軽な方法: Math.random()
         // 0.0以上、1.0未満のdouble値を返す
-        double randomDouble = Math.random();
+        double randomDouble = ThreadLocalRandom.current().nextDouble();
         System.out.println("Math.random()の結果: " + randomDouble);
 
         // 4b. 高機能な方法: java.util.Randomクラス（こちらが推奨）
