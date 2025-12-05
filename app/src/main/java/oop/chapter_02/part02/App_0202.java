@@ -26,17 +26,20 @@ public class App_0202 {
         // 2. instanceof と ダウンキャスト
         System.out.println("\n--- ペットの正体を確認し、特別な行動をさせる ---");
 
-        // `instanceof` で、インスタンスの「本当の型」を安全に確認する
-        if (myPet1 instanceof Dog_0202) {
+        // instanceof演算子のパターン・マッチング
+        // ダウンキャスト (Downcasting) で、親クラス型変数を子クラス型に変換
+        // 「Animal is a Dog」かどうかを確認してからキャストするので安全
+        // 下記の明示的キャストの代わりにinstanceof演算子の2番目のオペランドが
+        // タイプ・パターンで変更され、この変換のステップが省略できる。
+        // Dog_0202 pochi = (Dog_0202) myPet1;
+        //
+        if (myPet1 instanceof Dog_0202 pochi) {
             System.out.println(myPet1.name + "は犬でした。");
-            // 確認できたので、安全に `Dog_0105` 型へキャスト（型変換）できる
-            Dog_0202 pochi = (Dog_0202) myPet1;
             pochi.wagTail(); // Dog独自のメソッドが呼べる！
         }
 
-        if (myPet2 instanceof Cat_0202) {
+        if (myPet2 instanceof Cat_0202 tama) {
             System.out.println(myPet2.name + "は猫でした。");
-            Cat_0202 tama = (Cat_0202) myPet2;
             tama.hide(); // Cat独自のメソッドが呼べる！
         }
 
