@@ -38,12 +38,14 @@ public class App_0102 {
         // 1. まず、外部クラスのインスタンスを生成する
         Player_1101 hero = new Player_1101("勇者");
 
-        // 2. 外部クラスのインスタンスを使って、インナークラスのインスタンスを生成する
-        Player_1101.SpecialArmor holyArmor = hero.new SpecialArmor();
+        // 2. プレイヤーのステータスを表示する
+        hero.displayPlayerStatus();
 
-        // 3. インナークラスのメソッドを呼び出す
-        holyArmor.equip();
-        holyArmor.displayPlayerStatus();
+        // 3. インナークラスのインスタンスを生成する
+        hero.equipArmor();
+
+        // 4. プレイヤーのステータスを表示する
+        hero.displayPlayerStatus();
 
       }
 }

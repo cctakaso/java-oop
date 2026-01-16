@@ -10,9 +10,21 @@ package oop.o_chapter_01.part02;
 class Player_1101 {
     private String name;
     private int defensePower = 10; // プレイヤーの基本防御力
-
+    private SpecialArmor armor;
+    
     public Player_1101(String name) {
         this.name = name;
+    }
+
+    public void equipArmor() {
+        this.armor = new SpecialArmor();
+        armor.equip();
+    }
+
+    public void displayPlayerStatus() {
+        System.out.println(
+            "[" + name + "] の現在の防御力は " + defensePower + " です。"
+        );
     }
 
     /**
@@ -30,12 +42,6 @@ class Player_1101 {
             System.out.println(armorName + "を装備した！");
             // インナークラスから、外部クラス(Player)のprivateフィールド `defensePower` に直接アクセス！
             Player_1101.this.defensePower += this.armorBonus;
-        }
-
-        public void displayPlayerStatus() {
-            System.out.println(
-                "[" + name + "] の現在の防御力は " + defensePower + " です。"
-            );
         }
     }
 }
