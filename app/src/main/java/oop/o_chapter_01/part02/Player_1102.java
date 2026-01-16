@@ -34,11 +34,11 @@ class Player_1101 {
      * そのクラスのためだけに存在するヘルパーのような存在です。
      * * メリット：外部クラスの`private`メンバーに直接アクセスできます。
      */
-    public class SpecialArmor {
+    private class SpecialArmor {
         private String armorName = "聖なる鎧";
         private int armorBonus = 20;
 
-        public void equip() {
+        private void equip() {
             System.out.println(armorName + "を装備した！");
             // インナークラスから、外部クラス(Player)のprivateフィールド `defensePower` に直接アクセス！
             Player_1101.this.defensePower += this.armorBonus;
