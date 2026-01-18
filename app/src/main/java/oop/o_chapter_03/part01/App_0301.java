@@ -13,7 +13,6 @@ public class App_0301 {
         // 渡す引数の形に応じて、Javaが賢く適切なメソッドを選んでくれます。
         System.out.println("\n--- オーバーロードのデモ ---");
         GameCharacter_0301 hero = new GameCharacter_0301("勇者");
-        hero.attack();
         hero.attack("ドラゴン");
         hero.attack("ドラゴン", "メラゾーマ");
 
@@ -24,17 +23,18 @@ public class App_0301 {
 
         // 変数の型はすべて親クラスの`Animal_0201`に統一。
         // しかし、中身の実体はそれぞれ `Dog_0201` と `Cat_0201`。
-        Animal_0301 myPet1 = new Dog_0301("ポチ");
-        Animal_0301 myPet2 = new Cat_0301("タマ");
+        Animal_0301 animal1 = new Dog_0301("ポチ");
+        Animal_0301 animal2 = new Cat_0301("タマ");
+        Animal_0301 animal3 = new Crow_0301("クロ");
 
         // 配列にまとめて、同じ命令 `cry()` を実行してみる
-        Animal_0301[] pets = { myPet1, myPet2 };
+        Animal_0301[] animals = { animal1, animal2, animal3 };
 
-        for (Animal_0301 pet : pets) {
-            // `pet.cry()` という全く同じ呼び出し方をしているにも関わらず、
+        for (Animal_0301 animal : animals) {
+            // `animal.cry()` という全く同じ呼び出し方をしているにも関わらず、
             // Javaは変数の「中身の実体」をちゃんと見て、
             // それぞれのクラスでオーバーライドされた正しいメソッドを呼び出してくれます。
-            pet.cry();
+            animal.cry();
         }
     }
 }

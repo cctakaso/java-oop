@@ -11,17 +11,12 @@ public class GameCharacter_0301 {
         this.name = name;
     }
 
-    // 1. 引数なしのattackメソッド
-    public void attack() {
-        System.out.println(this.name + "の通常攻撃！");
-    }
-
-    // 2. 攻撃対象を引数に取るattackメソッド (オーバーロード)
+    // 1. 攻撃対象を引数に取るattackメソッド (オーバーロード)
     public void attack(String target) {
         System.out.println(this.name + "は " + target + " に攻撃した！");
     }
 
-    // 3. 攻撃対象と魔法の種類を引数に取るattackメソッド (オーバーロード)
+    // 2. 攻撃対象と魔法の種類を引数に取るattackメソッド (オーバーロード)
     public void attack(String target, String magic) {
         System.out.println(this.name + "は " + target + " に魔法「" + magic + "」を唱えた！");
     }
