@@ -17,6 +17,12 @@ public class App_1101 {
         public void showInfo() { System.out.println("I am a child."); }
     }
 
+    @SuppressWarnings("deprecation")
+    public static void testOldMethod() {
+        LegacyFeature_1101 legacy2 = new LegacyFeature_1101();
+        legacy2.oldMethod(); // この呼び出しでは警告が出なくなる
+    }
+
     public static void main(String[] args) {
         System.out.println("--- 第11章: アノテーション ---");
 
@@ -29,9 +35,7 @@ public class App_1101 {
 
         // @SuppressWarnings: コンパイラの警告を意図的に抑制する
         // ビデオシナリオ解説：乱用は危険！警告の理由をよく理解した上で限定的に使いましょう。
-        @SuppressWarnings("deprecation")
-        LegacyFeature_1101 legacy2 = new LegacyFeature_1101();
-        legacy2.oldMethod(); // この呼び出しでは警告が出なくなる
+        testOldMethod();
 
         System.out.println("@Override, @Deprecated, @SuppressWarnings を確認しました。");
 
