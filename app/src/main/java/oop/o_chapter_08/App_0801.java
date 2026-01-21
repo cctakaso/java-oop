@@ -34,7 +34,7 @@ public class App_0801 {
         System.out.println("\n--- 1. 従来のforループによる処理 ---");
         List<String> highexperienceWizards_for = new ArrayList<>();
         for (Player_0801 p : party) {
-            if ("魔法使い".equals(p.job()) && p.experience() >= 50) {
+            if (p.job().equals("魔法使い") && p.experience() >= 50) {
                 highexperienceWizards_for.add(p.name().toUpperCase());
             }
         }
@@ -48,7 +48,7 @@ public class App_0801 {
 
             // --- ② 中間処理 (Intermediate Operations) ---
             // ビデオシナリオ解説：ライン上の作業ステーション。複数連結できます。
-            .filter(p -> "魔法使い".equals(p.job()))       // 絞り込み(品質検査): 「魔法使い」だけを通す
+            .filter(p -> p.job().equals("魔法使い")) // 絞り込み(品質検査): 「魔法使い」だけを通す
             .filter(p -> p.experience() >= 50)               // 絞り込み(品質検査): 「経験値50以上」だけを通す
             .sorted((p1, p2) -> Integer.compare(p2.experience(), p1.experience())) // 中間処理の追加: 経験値降順で並び替え
             .map(p -> p.name().toUpperCase())           // 変換(塗装): Playerオブジェクトを「大文字の名前(String)」に変換

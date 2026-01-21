@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * 第9章 Part 1: try-catch-finally 〜伝統的なエラーハンドリング〜
@@ -42,7 +44,9 @@ public class App_0901 {
         BufferedReader br = null; // `try`の外で宣言しないと`finally`から見えない
         try {
             // このデモでは、ファイルは存在するものとします（事前に作成してください）
-            br = new BufferedReader(new FileReader("dummy.txt"));
+            java.net.URL url = App_0901.class.getResource("/dummy.txt");
+
+            br = new BufferedReader(new FileReader(url.getPath()));
             System.out.println("try: ファイルを開きました。");
             // ...ここで何らかの処理...
             // わざと例外を発生させてみる
