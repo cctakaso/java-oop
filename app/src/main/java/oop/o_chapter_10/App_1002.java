@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +20,7 @@ public class App_1002 {
 
     public static void main(String[] args) {
         System.out.println("--- 第10章 Part 2: テキストI/OとStream連携 ---");
-        String fileName = "mission_log.txt";
+        String fileName = App_1001.class.getResource("/mission_log.txt").getPath();
 
         // --- 1. テキストファイルの書き込み ---
         // ビデオシナリオ解説：`BufferedWriter`と`OutputStreamWriter`を「重ね着」して使う。

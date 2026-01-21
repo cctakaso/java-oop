@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.net.URL;
 
 /**
  * 第10章 Part 1: ファイル操作とバイナリI/O
@@ -19,27 +20,29 @@ public class App_1001 {
         System.out.println("\n--- 1. 秘密のフォルダとファイルの操作 ---");
 
         // 操作対象のディレクトリ（フォルダ）とファイルを指定
-        File secretDir = new File("mission_files");
-        File secretFile = new File(secretDir, "report.txt");
+        URL url = App_1001.class.getResource("/mission_files");
+        String path = url.getPath();
+        File missionDir = new File(path);
+        File missionFile = new File(missionDir, "report.txt");
 
         try {
             // ディレクトリが存在するかチェックし、なければ作成
-            if (!secretDir.exists()) {
-                secretDir.mkdir(); // mkdirs()なら親フォルダもまとめて作れる
-                System.out.println("ディレクトリ '" + secretDir.getName() + "' を作成しました。");
+            if (!missionDir.exists()) {
+                missionDir.mkdir(); // mkdirs()なら親フォルダもまとめて作れる
+                System.out.println("ディレクトリ '" + missionDir.getName() + "' を作成しました。");
             }
 
             // ファイルが存在するかチェックし、なければ作成
-            if (!secretFile.exists()) {
-                secretFile.createNewFile();
-                System.out.println("ファイル '" + secretFile.getName() + "' を作成しました。");
+            if (!missionFile.exists()) {
+                missionFile.createNewFile();
+                System.out.println("ファイル '" + missionFile.getName() + "' を作成しました。");
             }
    
             // ファイルの情報を表示
-            System.out.println("ファイル名: " + secretFile.getName());
-            System.out.println("絶対パス: " + secretFile.getAbsolutePath());
-            System.out.println("これはファイルですか？: " + secretFile.isFile());
-            System.out.println("これはディレクトリですか？: " + secretFile.isDirectory());
+            System.out.println("ファイル名: " + missionFile.getName());
+            System.out.println("絶対パス: " + missionFile.getAbsolutePath());
+            System.out.println("これはファイルですか？: " + missionFile.isFile());
+            System.out.println("これはディレクトリですか？: " + missionFile.isDirectory());
 
         } catch (IOException e) {
             System.out.println("エラー: ファイル操作中に問題が発生しました。");
@@ -54,8 +57,10 @@ public class App_1001 {
         // (画像ファイルやテキストファイルなど)をプロジェクトフォルダに作成してください。
 
         // try-with-resources文で、`in`と`out`が自動的に閉じられる
-        try (FileInputStream in = new FileInputStream("source.bin");
-             FileOutputStream out = new FileOutputStream("destination.bin")) {
+        String pathSource = App_1001.class.getResource("/source.bin").getPath();
+        String pathDestination = App_1001.class.getResource("/destination.bin").getPath();
+        try (FileInputStream in = new FileInputStream(pathSource);
+             FileOutputStream out = new FileOutputStream(pathDestination)) {
    
             byte[] buffer = new byte[1024]; // 1KBのバッファ(一時的な入れ物)を用意
             int len;
@@ -74,17 +79,6 @@ public class App_1001 {
         } catch (IOException e) {
             System.out.println("エラー: ファイルのコピー中に問題が発生しました。");
             e.printStackTrace();
-        }
-
-        // --- 後片付け ---
-        System.out.println("\n--- 訓練終了、証拠隠滅 ---");
-        if (secretFile.exists()) {
-            secretFile.delete();
-            System.out.println("ファイル '" + secretFile.getName() + "' を削除しました。");
-        }
-        if (secretDir.exists()) {
-            secretDir.delete();
-            System.out.println("ディレクトリ '" + secretDir.getName() + "' を削除しました。");
         }
     }
 }

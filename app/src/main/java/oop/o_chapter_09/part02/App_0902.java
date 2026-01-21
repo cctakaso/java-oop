@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
 
+import oop.o_chapter_09.part01.App_0901;
+
 /**
  * 第9章 Part 2: try-with-resourcesとOptional 〜モダンなエラーハンドリング〜
  */
@@ -16,7 +18,8 @@ public class App_0902 {
         // --- 1. try-with-resources ---
         // ビデオシナリオ解説：`finally`での`close()`処理をJavaが自動で行ってくれる便利な構文。
         System.out.println("\n--- 1. try-with-resourcesによるリソース管理 ---");
-        try (BufferedReader br = new BufferedReader(new FileReader("dummy.txt"))) {
+        java.net.URL url = App_0901.class.getResource("/dummy.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(url.getPath()))) {
             // `try`の( )内で生成したリソース(`br`)は、
             // このブロックを抜けるときに自動で`close()`される。
             System.out.println("ファイルから1行読み込み: " + br.readLine());
