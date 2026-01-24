@@ -80,22 +80,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        String fileName = "input.txt";
-        // try-with-resourcesでリソースを自動的にクローズする
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
-            
-            String line;
-            // 1行ずつ読み込み、nullになるまで（ファイルの終端まで）ループする
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.err.println("ファイルの読み込み中にエラーが発生しました: " + e.getMessage());
-            e.printStackTrace();
+  public static void main(String[] args) {
+    String fileName = "input.txt";
+    // try-with-resourcesでリソースを自動的にクローズする
+    try (BufferedReader reader = new BufferedReader(
+      new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+        String line;
+        // 1行ずつ読み込み、nullになるまで（ファイルの終端まで）ループする
+        while ((line = reader.readLine()) != null) {
+           System.out.println(line);
         }
+    } catch (IOException e) {
+        System.err.println("ファイルの読み込み中にエラーが発生しました: " + e.getMessage());
+        e.printStackTrace();
     }
+  }
 }
 ```
 解説：

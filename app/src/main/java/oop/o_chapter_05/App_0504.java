@@ -59,5 +59,25 @@ public class App_0504 {
         ZonedDateTime londonTime = ZonedDateTime.now(ZoneId.of("Europe/London"));
         System.out.println("東京の現在時刻: " + tokyoTime.format(formatter));
         System.out.println("ロンドンの現在時刻: " + londonTime.format(formatter));
+
+
+        String text = "Java, Programming, Language";
+        String word = "";
+
+        for (int i=0; i<text.length(); i++) {
+            char ch = text.charAt(i);
+            if (ch==',') {
+
+               System.out.println(word);
+
+               word = "";
+
+            }else{
+
+               word += ch;
+
+            }
+
+        }
     }
 }

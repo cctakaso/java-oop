@@ -107,4 +107,8 @@ public class Book {
 }
 ```
 解説：
-まず`@interface`キーワードを使って独自のアノテーション`Author`を定義します。`@Retention(RetentionPolicy.RUNTIME)`で実行時にリフレクションで読めるようにし、`@Target`で適用対象を指定します。アノテーション内では、メソッドのような形式で要素を宣言します。`Book`クラスでは、`@Author(name = "John Doe")`のようにしてアノテーションを付与します（`created`はデフォルト値が使われます）。`main`メソッドでは、リフレクションAPIの`getAnnotation()`を使って、実行時にクラスに付与されたアノテーションの情報を取得し、表示しています。
+まず@interfaceキーワードを使って独自のアノテーションAuthorを定義します。@Retention(RetentionPolicy.RUNTIME)で実行時にリフレクションで読めるようにし、@Targetで適用対象を指定します。アノテーション内では、メソッドのような形式で要素を宣言します。Bookクラスでは、@Author(name = "John Doe")のようにしてアノテーションを付与します（createdはデフォルト値が使われます）。mainメソッドでは、リフレクションAPIのgetAnnotation()を使って、実行時にクラスに付与されたアノテーションの情報を取得し、表示しています。
+1. @Retention (保持期間)
+SOURCE:ソースコード上のみ, CLASS:クラスファイルには残るが、VM実行時は不要（デフォルト）, RUNTIME:VM実行時も保持。リフレクションAPIで取得可
+2. @Target (適用対象)
+TYPE:クラス、インタフェース、Enum, FIELD:フィールド, METHOD:メソッド, PARAMETER:メソッド・パラメータ, CONSTRUCTOR:コンストラクタ, LOCAL_VARIABLE:ローカル変数, ANNOTATION_TYPE:アノテーション型自体, PACKAGE:パッケージ宣言

@@ -70,18 +70,18 @@ public class Main {
 `java.time.LocalDateTime.now()`で現在のマシン設定に基づいた日時を取得します。次に、`java.time.format.DateTimeFormatter.ofPattern()`を使って、指定したパターンのフォーマッタを作成します。最後に、`LocalDateTime`オブジェクトの`format()`メソッドにフォーマッタを渡すことで、目的の書式に変換された文字列を得ることができます。
 
 -------------------------------------------------------------------------------
-Q05. 文字列`"Java,Programming,Language"`をカンマ`,`で分割し、各単語をコンソールに1行ずつ出力するコードを記述してください。
+Q05. 文字列`"Java, Programming, Language"`をカンマ`,`で分割し、各単語をコンソールに1行ずつ出力するコードを記述してください。
 -------------------------------------------------------------------------------
 
 答え：
 ```java
 public class Main {
     public static void main(String[] args) {
-        String text = "Java,Programming,Language";
+        String text = "Java, Programming, Language";
         String[] words = text.split(",");
 
         for (String word : words) {
-            System.out.println(word);
+            System.out.println(word.trim());
         }
     }
 }
