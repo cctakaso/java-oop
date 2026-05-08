@@ -5,7 +5,7 @@ This repository contains various sample applications and educational materials f
 implementations.
 
 # udemy education program
-「元Microsoftエンジニア直伝｜AI時代に通用するJavaの本質とプロの設計思想 OOP編」
+「AI時代に通用するJavaの本質とプロの設計思想 OOP編」
 https://www.udemy.com/course/og-java-oop/
 
 ## Features
