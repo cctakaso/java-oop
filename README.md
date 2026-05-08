@@ -6,7 +6,7 @@ implementations.
 
 # udemy education program
 「AI時代に通用するJavaの本質とプロの設計思想 OOP編」
-https://www.udemy.com/course/og-java-oop/
+*  https://www.udemy.com/course/og-java-oop/
 
 ## Features
 
